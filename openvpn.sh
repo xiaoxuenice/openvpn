@@ -69,8 +69,8 @@ systemctl start firewalld.service
 systemctl enable firewalld.service
 ETH=`ifconfig |head -n1|awk -F":" '{print $1}'`
 echo 获取到接口       $ETH
-firewall-cmd --add-port=22/tcp --permanent
 firewall-cmd --add-port=1194/tcp --permanent
+firewall-cmd --add-port=1194/udp --permanent
 firewall-cmd --add-masquerade --permanent
 firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i $ETH -p gre -j ACCEPT
 firewall-cmd --reload
@@ -86,15 +86,15 @@ echo 创建一个客户端秘钥.xiaoxue是客户端名称,nopass选项表示不
 cd /etc/openvpn/easy-rsa/3
 ./easyrsa build-client-full xiaoxue nopass
 echo 拷贝客户端秘钥到/root/vpn-client/
-if [ ! -d ~/vpn-client ];then mkdir ~/vpn-client;else rm -rf ~/vpn-client/*;fi
+if [ ! -d /vpn-client/xiaoxue ];then mkdir -p /vpn-client/xiaoxue ;else rm -rf /vpn-client/xiaoxue/* ;fi
 assert
-cp pki/ca.crt ~/vpn-client/
-cp pki/issued/xiaoxue.crt ~/vpn-client/client.crt
-cp pki/private/xiaoxue.key ~/vpn-client/client.key
+cp pki/ca.crt /vpn-client/xiaoxue/
+cp pki/issued/xiaoxue.crt /vpn-client/xiaoxue/
+cp pki/private/xiaoxue.key /vpn-client/xiaoxue/
 assert
 echo 配置客户端的配置文件...................
-cd ~/vpn-client/
-cat >> client.ovpn <<EOF
+cd /vpn-client/xiaoxue
+cat >> xiaoxue.ovpn <<EOF
 client
 dev tun
 proto tcp
@@ -108,8 +108,8 @@ persist-tun
 user nobody
 group nobody
 ca ca.crt
-cert client.crt
-key client.key
+cert xiaoxue.crt
+key xiaoxue.key
 comp-lzo
 verb 3
 sndbuf 393216 
@@ -121,7 +121,6 @@ systemctl -f enable openvpn@server.service
 systemctl start openvpn@server.service
 assert
 echo -e "\033[47;31;5m windows下载地址\n https://swupdate.openvpn.org/community/releases/openvpn-install-2.4.9-I601-Win7.exe \033[0m"
-echo -e "\033[47;31;5m 下载/root/vpn-client/下面的四个文件到客户端  \033[0m"
-cd ~/vpn-client/
+cd /vpn-client/xiaoxue
+echo -e "\033[47;31;5m 下载 /vpn-client/xiaoxue 下面的四个文件到客户端  \033[0m"
 ls
-
