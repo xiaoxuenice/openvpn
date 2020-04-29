@@ -34,4 +34,4 @@ sndbuf 393216
 rcvbuf 393216
 EOF
 #systemctl restart openvpn@server.service
-echo ====================CREATE DONE=====================
+echo -e "\033[47;31m ====================CREATE DONE=====================  \033[0m"
