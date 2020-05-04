@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ ! -d /vpn-client ];then mkdir /vpn-client;else echo "文件位于/vpn-client/下" /fi
 if [  $# -eq 1 ];then
 echo -e "\033[47;31m Create user key Start..........  \033[0m"
 else
@@ -17,7 +18,7 @@ client
 dev tun
 proto tcp
 proto udp
-remote 192.168.116.220  369
+remote 192.168.116.220  88
 resolv-retry infinite
 redirect-gateway
 nobind
