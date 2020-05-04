@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -d /vpn-client ];then mkdir /vpn-client;else echo "文件位于/vpn-client/下" /fi
+if [ ! -d /vpn-client ];then mkdir /vpn-client;else echo "文件位于/vpn-client/下" ;fi
 if [  $# -eq 1 ];then
 echo -e "\033[47;31m Create user key Start..........  \033[0m"
 else
