@@ -18,7 +18,7 @@ client
 dev tun
 proto tcp
 proto udp
-remote 192.168.116.220  88
+remote 192.168.116.220  88       #端口，及外网ip记得更换
 resolv-retry infinite
 redirect-gateway
 nobind
