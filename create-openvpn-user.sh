@@ -13,12 +13,13 @@ cp pki/ca.crt /vpn-client/$1/
 cp pki/issued/${1}.crt /vpn-client/$1/
 cp pki/private/${1}.key /vpn-client/$1/
 cd /vpn-client/${1}
+IP=`curl -s ifconfig.me`
 cat >> ${1}.ovpn <<EOF
 client
 dev tun
 proto tcp
 proto udp
-remote 192.168.116.220  88       #端口，及外网ip记得更换
+remote ${IP}   88       #端口，及外网ip记得更换
 resolv-retry infinite
 redirect-gateway
 nobind

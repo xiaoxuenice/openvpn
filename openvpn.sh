@@ -68,7 +68,7 @@ EOF
 echo 开启防火墙................
 systemctl start firewalld.service
 systemctl enable firewalld.service
-ETH=`ifconfig |head -n1|awk -F":" '{print $1}'`
+ETH=`route | grep default | awk '{print $NF}'`
 echo 获取到接口       $ETH
 firewall-cmd --add-port=1194/tcp --permanent
 firewall-cmd --add-port=1194/udp --permanent
@@ -95,12 +95,13 @@ cp pki/private/xiaoxue.key /vpn-client/xiaoxue/
 assert
 echo 配置客户端的配置文件...................
 cd /vpn-client/xiaoxue
+IP=`curl -s ifconfig.me`
 cat >> xiaoxue.ovpn <<EOF
 client
 dev tun
 proto tcp
 proto udp
-remote 192.168.1.12 1194  #客户端远程拨号公司出口公网IP地址
+remote ${IP} 1194  #客户端远程拨号公司出口公网IP地址
 resolv-retry infinite
 redirect-gateway
 nobind
