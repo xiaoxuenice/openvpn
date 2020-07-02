@@ -13,13 +13,14 @@ rpm -ivh epel-release-7-12.noarch.rpm
 echo 正在安装openvpn和easy-rsa..............
 yum install easy-rsa openssh-server lzo openssl openssl-devel openvpn NetworkManager-openvpn openvpn-auth-ldap -y
 assert
+VESTION=`openvpn --version|head -n 1|awk '{print $2}'`
 echo 拷贝server.conf配置文件到/etc/openvpn...
-cp /usr/share/doc/openvpn-2.4.8/sample/sample-config-files/server.conf /etc/openvpn/
+cp /usr/share/doc/openvpn-${VESTION}/sample/sample-config-files/server.conf /etc/openvpn/
 echo 拷贝easy-rsa程序到/etc/openvpn..........
 cp -R /usr/share/easy-rsa/ /etc/openvpn/
 cd /etc/openvpn/easy-rsa/3
 echo easyrsa初始化私钥....
-./easyrsa init-pki
+yes | ./easyrsa init-pki
 yes | ./easyrsa build-ca nopass
 assert
 echo 创建服务端秘钥........
