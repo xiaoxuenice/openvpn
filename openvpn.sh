@@ -8,13 +8,15 @@ assert(){
 exit
 fi
 }
+rpm -q openvpn
+if [[  $? -eq 0 ]];then echo "Already have openvpn,then remove.........";fi
 wget https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm
 rpm -ivh epel-release-7-12.noarch.rpm
 echo 正在安装openvpn和easy-rsa..............
 yum install easy-rsa openssh-server lzo openssl openssl-devel openvpn NetworkManager-openvpn openvpn-auth-ldap -y
 assert
 VESTION=`openvpn --version|head -n 1|awk '{print $2}'`
-echo 拷贝server.conf配置文件到/etc/openvpn...
+echo 拷贝server.conf配置文件到/etc/openvpn.......
 cp /usr/share/doc/openvpn-${VESTION}/sample/sample-config-files/server.conf /etc/openvpn/
 echo 拷贝easy-rsa程序到/etc/openvpn..........
 cp -R /usr/share/easy-rsa/ /etc/openvpn/
@@ -69,7 +71,7 @@ echo 开启防火墙................
 systemctl start firewalld.service
 systemctl enable firewalld.service
 ETH=`route | grep default | awk '{print $NF}'`
-echo 获取到接口       $ETH
+echo 获取到接口       ${ETH}.............
 firewall-cmd --add-port=1194/tcp --permanent
 firewall-cmd --add-port=1194/udp --permanent
 firewall-cmd --add-masquerade --permanent
@@ -126,3 +128,5 @@ echo -e "\033[47;31;5m windows下载地址\n https://swupdate.openvpn.org/commun
 cd /vpn-client/xiaoxue
 echo -e "\033[47;31;5m 下载 /vpn-client/xiaoxue 下面的四个文件到客户端  \033[0m"
 ls
+cd ..
+wget https://raw.githubusercontent.com/xiaoxuenice/openvpn/master/create-openvpn-user.sh
