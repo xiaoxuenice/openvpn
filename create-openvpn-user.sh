@@ -19,7 +19,7 @@ client
 dev tun
 proto tcp
 proto udp
-remote ${IP}   88       #端口，及外网ip记得更换
+remote ${IP}   1194       #端口，及外网ip记得更换
 resolv-retry infinite
 redirect-gateway
 nobind
@@ -31,6 +31,7 @@ ca ca.crt
 cert ${1}.crt
 key ${1}.key
 comp-lzo
+auth-nocache
 verb 3
 sndbuf 393216 
 rcvbuf 393216

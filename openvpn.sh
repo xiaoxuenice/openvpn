@@ -114,6 +114,7 @@ group nobody
 ca ca.crt
 cert xiaoxue.crt
 key xiaoxue.key
+auth-nocache
 comp-lzo
 verb 3
 sndbuf 393216 
