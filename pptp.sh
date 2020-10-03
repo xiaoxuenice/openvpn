@@ -95,7 +95,6 @@ END
 ETH=`route | grep default | awk '{print $NF}'`
 
 systemctl restart firewalld.service
-systemctl enable firewalld.service
 firewall-cmd --set-default-zone=public
 firewall-cmd --add-interface=$ETH
 firewall-cmd --add-port=22/tcp --permanent
