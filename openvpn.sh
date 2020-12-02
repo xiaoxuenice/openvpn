@@ -130,4 +130,6 @@ cd /vpn-client/xiaoxue
 echo -e "\033[47;31;5m 下载 /vpn-client/xiaoxue 下面的四个文件到客户端  \033[0m"
 ls
 cd ..
-wget https://raw.githubusercontent.com/xiaoxuenice/openvpn/master/create-openvpn-user.sh
+#wget https://raw.githubusercontent.com/xiaoxuenice/openvpn/master/create-openvpn-user.sh
+#centos8自添加启动nohup /usr/sbin/openvpn --cd /etc/openvpn/ --config server.conf &
+
