@@ -132,4 +132,16 @@ ls
 cd ..
 #wget https://raw.githubusercontent.com/xiaoxuenice/openvpn/master/create-openvpn-user.sh
 #centos8自添加启动nohup /usr/sbin/openvpn --cd /etc/openvpn/ --config server.conf &
+#centos8 自己添加下面这段
+cat /lib/systemd/system/openvpn@.service
+[Unit]
+Description=OpenVPN Robust And Highly Flexible Tunneling Application On %I
+After=network.target
+[Service]
+Type=notify
+PrivateTmp=true
+ExecStart=/usr/sbin/openvpn --cd /etc/openvpn/ --config %i.conf
+[Install]
+WantedBy=multi-user.target
+
 
