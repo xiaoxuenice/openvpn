@@ -10,8 +10,8 @@ fi
 }
 rpm -q openvpn
 if [[  $? -eq 0 ]];then echo "Already have openvpn,then remove.........";fi
-wget https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm
-rpm -ivh epel-release-7-12.noarch.rpm
+wget https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-13.noarch.rpm
+rpm -ivh epel-release-7-13.noarch.rpm
 echo 正在安装openvpn和easy-rsa..............
 yum install easy-rsa openssh-server lzo openssl openssl-devel openvpn NetworkManager-openvpn openvpn-auth-ldap -y
 assert
